@@ -1,0 +1,15 @@
+meta {
+  name: Slack ingest
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/ingest/slack
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

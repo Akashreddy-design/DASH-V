@@ -1,0 +1,15 @@
+meta {
+  name: Ingest Email
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/ingest/email
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

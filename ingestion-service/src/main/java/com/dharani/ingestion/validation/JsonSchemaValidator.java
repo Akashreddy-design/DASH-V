@@ -11,22 +11,47 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.InputStream;
 import java.util.Set;
 
-public class JsonSchemaValidator {
+public final class JsonSchemaValidator {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    public static void validate(String rawJson, String messageType) throws Exception {
-        JsonNode jsonNode = objectMapper.readTree(rawJson);
+    private JsonSchemaValidator() { }
 
-        String schemaFile = "schemas/" + messageType + "-schema.json";
-        InputStream schemaStream = new ClassPathResource(schemaFile).getInputStream();
+    public static void validate(String rawJson, String messageType) {
+        if (rawJson == null || rawJson.isBlank())
+            throw new IllegalArgumentException("Payload is empty.");
+        if (messageType == null || messageType.isBlank())
+            throw new IllegalArgumentException("messageType is required.");
 
-        JsonSchema schema = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7)
-                .getSchema(schemaStream);
+        // 1) Parse JSON
+        final JsonNode json;
+        try {
+            json = MAPPER.readTree(rawJson);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid JSON: " + e.getMessage());
+        }
 
-        Set<ValidationMessage> errors = schema.validate(jsonNode);
-        if (!errors.isEmpty()) {
-            throw new IllegalArgumentException("Invalid " + messageType + " message: " + errors);
+        // Optional: enforce object at root
+        // if (!json.isObject()) throw new IllegalArgumentException("Root must be a JSON object.");
+
+        // 2) Load schema
+        String type = messageType.trim().toLowerCase();
+        String schemaPath = "schemas/" + type + "-schema.json";
+
+        try (InputStream in = new ClassPathResource(schemaPath).getInputStream()) {
+            JsonSchema schema = JsonSchemaFactory
+                    .getInstance(SpecVersion.VersionFlag.V7)
+                    .getSchema(in);
+
+            // 3) Validate
+            Set<ValidationMessage> errors = schema.validate(json);
+            if (!errors.isEmpty()) {
+                throw new IllegalArgumentException("Invalid " + type + " message: " + errors);
+            }
+        } catch (java.io.IOException notFound) {
+            throw new IllegalArgumentException("Schema file not found: " + schemaPath);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Schema validation error: " + e.getMessage());
         }
     }
 }
