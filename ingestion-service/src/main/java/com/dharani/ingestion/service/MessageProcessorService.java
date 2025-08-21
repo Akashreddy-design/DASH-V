@@ -1,8 +1,11 @@
+// src/main/java/com/dharani/ingestion/service/MessageProcessorService.java
+
 package com.dharani.ingestion.service;
 
 import com.dharani.ingestion.validation.JsonSchemaValidator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +26,20 @@ public class MessageProcessorService {
         // Step 1: Validate the JSON (against schema)
         validateJson(rawJson, messageType);
 
-        // Step 2: Generate a stable and unique ID
-        String stableMessageId = UUID.randomUUID().toString();
-
-        // Step 3: Publish to Kafka
         try {
             JsonNode rootNode = objectMapper.readTree(rawJson);
-            ((com.fasterxml.jackson.databind.node.ObjectNode) rootNode).put("messageId", stableMessageId);
-            String payloadWithId = objectMapper.writeValueAsString(rootNode);
+            ObjectNode objectNode = (ObjectNode) rootNode;
 
+            // Step 2: Handle or generate a stable and unique ID
+            if (!objectNode.has("messageId") || objectNode.get("messageId").asText().isEmpty()) {
+                String stableMessageId = UUID.randomUUID().toString();
+                objectNode.put("messageId", stableMessageId);
+            }
+
+            // Step 3: Publish to Kafka
+            String payloadWithId = objectMapper.writeValueAsString(objectNode);
             kafkaTemplate.send("ingest.v1", payloadWithId);
+
         } catch (Exception e) {
             throw new RuntimeException("Failed to process and publish message.", e);
         }
