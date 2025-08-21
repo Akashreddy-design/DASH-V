@@ -1,0 +1,20 @@
+meta {
+  name: FetchViolations
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8084/api/violations
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: admin
+  password: admin123
+}
+
+settings {
+  encodeUrl: true
+}

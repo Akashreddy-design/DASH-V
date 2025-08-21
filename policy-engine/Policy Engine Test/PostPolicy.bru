@@ -1,0 +1,33 @@
+meta {
+  name: PostPolicy
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8084/api/policies
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: admin
+  password: admin123
+}
+
+body:json {
+  {
+    "ruleId": "email-subject-offrecord",
+    "version": 1,
+    "type": "REGEX",
+    "networkEquals": "email",
+    "field": "subject",
+    "pattern": "(?i)\\boff the record\\b",
+    "description": "Flag subjects that suggest off-record communications",
+    "enabled": true
+  }
+}
+
+settings {
+  encodeUrl: true
+}

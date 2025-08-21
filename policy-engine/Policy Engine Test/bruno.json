@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Policy Engine Test",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

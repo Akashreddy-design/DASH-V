@@ -1,0 +1,20 @@
+meta {
+  name: MarkIdReviewed
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8084/api/violations/869d8b0b-29fe-4147-ac72-11b90c1c2e19/review
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: admin
+  password: admin123
+}
+
+settings {
+  encodeUrl: true
+}

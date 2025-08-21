@@ -1,0 +1,20 @@
+meta {
+  name: GetPolicies
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8084/api/policies
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: admin
+  password: admin123
+}
+
+settings {
+  encodeUrl: true
+}

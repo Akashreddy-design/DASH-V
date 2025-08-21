@@ -1,0 +1,59 @@
+server:
+  port: 8084
+
+app:
+  topics:
+    canonicalPolicy: canonical.policy.v1
+
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: policy-engine          # unique group for policy engine
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/policydb
+    username: policy
+    password: policy
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      connection-timeout: 30000
+      pool-name: policy-hikari
+  jpa:
+    hibernate:
+      ddl-auto: update           # dev only; switch to 'validate' after Flyway
+    open-in-view: false
+    show-sql: false              # set true if you want to see SQL in logs
+    properties:
+      hibernate.format_sql: true
+      hibernate.jdbc.time_zone: UTC
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+  security:
+    user:
+      name: admin                # dev-only basic auth user
+      password: admin123         # change before pushing anywhere
+      roles: ADMIN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: INFO      # set to DEBUG to see SQL
+    org.hibernate.type.descriptor.sql: WARN
