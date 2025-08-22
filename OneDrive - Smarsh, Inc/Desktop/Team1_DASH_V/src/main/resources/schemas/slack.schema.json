@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "title": "SlackMessage",
+  "type": "object",
+  "required": [
+    "tenantId",
+    "network",
+    "user",
+    "text",
+    "timestamp",
+    "team",
+    "channel"
+  ],
+  "properties": {
+    "messageId": {
+      "type": "string",
+      "description": "Stable ID (optional). If not provided, system generates one"
+    },
+    "tenantId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "network": {
+      "const": "slack"
+    },
+    "user": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "team": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string"
+    },
+    "rawReference": {
+      "type": "string",
+      "description": "Pointer to archived raw data (optional)"
+    }
+  },
+  "additionalProperties": true
+}
