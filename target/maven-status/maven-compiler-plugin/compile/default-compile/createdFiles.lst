@@ -1,0 +1,5 @@
+com\example\demo\ElasticSearchServiceApplication.class
+com\example\demo\model\NormalizedMessage.class
+com\example\demo\controller\SearchController.class
+com\example\demo\search\SearchService.class
+com\example\demo\config\ElasticConfig.class
