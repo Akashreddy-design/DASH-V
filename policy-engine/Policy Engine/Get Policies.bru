@@ -1,0 +1,35 @@
+meta {
+  name: Get Policies
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8084/api/policies
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: admin
+  password: admin123
+}
+
+body:json {
+  {
+    "ruleId": "2c1f1a64-8d6e-4a46-9b6e-9f1a2a5d9f10",
+    "version": 1,
+    "type": "regex",
+    "when": {
+      "networkEquals": "email"
+    },
+    "field": "subject",
+    "pattern": "(?i)\\boff the record\\b",
+    "description": "Flag subjects that suggest off-record communications"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}

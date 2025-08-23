@@ -1,0 +1,15 @@
+meta {
+  name: SendingMessage
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/evaluator/test
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
