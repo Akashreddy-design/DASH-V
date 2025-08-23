@@ -1,0 +1,1 @@
+{"tenantId":"bank-003","network":"email","payload":{"from":"ceo@bank.com","to":["boardmember@bank.com"],"subject":"Quarterly financial results","body":"Please find the attached summary of this quarter’s performance. Let’s align before the investor call.","sentAt":"2025-08-15T09:45:00Z"},"messageId":"f04b7018b140fab64476fb81dd7c925f"}

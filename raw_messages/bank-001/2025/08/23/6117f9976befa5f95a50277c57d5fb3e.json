@@ -1,0 +1,1 @@
+{"tenantId":"bank-001","network":"email","payload":{"from":"compliance@bank.com","to":["all-staff@bank.com"],"subject":"Q3 Compliance Training Mandatory","body":"All employees must complete the Q3 compliance training by September 30th. This includes anti-money laundering and data privacy modules.","sentAt":"2025-08-15T09:30:00Z"},"messageId":"6117f9976befa5f95a50277c57d5fb3e"}

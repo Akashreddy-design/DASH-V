@@ -1,0 +1,30 @@
+
+server:
+  port: 8081   # pick any free port (not 8080 since ingestion is using it)
+
+
+spring:
+  elasticsearch:
+    uris: http://localhost:9200   # adjust if different
+    data:
+      elasticsearch:
+        repositories:
+          enabled: false
+      mongodb:
+        uri: mongodb://localhost:27017
+        database: companyVault
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: normalization-group
+      auto-offset-reset: earliest
+      properties:
+        isolation.level: read_committed
+    listener:
+      ack-mode: record   # optional; fine to omit if default works for you
+
+app:
+  topics:
+    ingest: ingest.v1
+    dlq: ingest.dlq
+
