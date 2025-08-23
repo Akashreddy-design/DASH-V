@@ -1,0 +1,11 @@
+{
+  "messageId": "b3a5c087-41e8-42a9-b24b-5a4c6a0835fa",
+  "tenantId": "bank-002",
+  "network": "slack",
+  "user": "trader2",
+  "text": "Delete this message after reading.",
+  "timestamp": "2025-08-14T08:45:12Z",
+  "team": "trading-floor",
+  "channel": "private-chat",
+  "rawReference": "raw://archive/bank-002/2025/08/14/b3a5c087-41e8-42a9-b24b-5a4c6a0835fa"
+}
