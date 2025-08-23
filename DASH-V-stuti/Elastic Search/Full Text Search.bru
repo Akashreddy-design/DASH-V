@@ -1,0 +1,19 @@
+meta {
+  name: Full Text Search
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8085/api/messages/search?query=summary
+  body: none
+  auth: inherit
+}
+
+params:query {
+  query: summary
+}
+
+settings {
+  encodeUrl: true
+}

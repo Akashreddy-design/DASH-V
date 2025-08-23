@@ -1,0 +1,42 @@
+server:
+  port: 8085
+
+app:
+  topics:
+    canonicalPolicy: canonical.policy.v1
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: policy-engine
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: true
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+  security:
+    user:
+      name: admin
+      password: admin123
+      roles: ADMIN
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/companyVault
+      database: companyVault
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:
+    root: INFO

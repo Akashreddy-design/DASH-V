@@ -1,0 +1,8 @@
+audit:
+  enabled: true
+  http:
+    enabled: true
+  kafka:
+    enabled: false
+  gateway:
+    enabled: true

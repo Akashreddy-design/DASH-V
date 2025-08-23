@@ -1,0 +1,20 @@
+meta {
+  name: Keyword Search
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8085/api/messages/search/keyword?field=sender&value=ceo@bank.com
+  body: none
+  auth: inherit
+}
+
+params:query {
+  field: sender
+  value: ceo@bank.com
+}
+
+settings {
+  encodeUrl: true
+}

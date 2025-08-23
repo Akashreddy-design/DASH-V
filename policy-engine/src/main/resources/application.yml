@@ -27,7 +27,7 @@ spring:
       pool-name: policy-hikari
   jpa:
     hibernate:
-      ddl-auto: update           # dev only; switch to 'validate' after Flyway
+      ddl-auto: create # dev only; switch to 'validate' after Flyway
     open-in-view: false
     show-sql: false              # set true if you want to see SQL in logs
     properties:
@@ -36,6 +36,10 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: companyVault
 
   security:
     user:

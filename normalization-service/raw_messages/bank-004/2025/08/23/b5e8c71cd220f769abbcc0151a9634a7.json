@@ -1,0 +1,1 @@
+{"tenantId":"bank-004","network":"email","payload":{"from":"hr@bank.com","to":["managers@bank.com"],"subject":"Performance Review Guidelines","body":"Annual performance reviews begin next month. Please ensure all documentation is completed and submitted by the deadline.","sentAt":"2025-08-19T13:30:00Z"},"messageId":"b5e8c71cd220f769abbcc0151a9634a7"}

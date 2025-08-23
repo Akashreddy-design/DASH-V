@@ -30,5 +30,5 @@ public class CanonicalMessage {
     private List<String> recipients;
     private String team;
     private String rawFileRef;
-    private String rawPayload;
+
 }

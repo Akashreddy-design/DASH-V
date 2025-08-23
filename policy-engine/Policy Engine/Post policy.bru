@@ -1,0 +1,55 @@
+meta {
+  name: Post policy
+  type: http
+  seq: 3
+}
+
+get {
+  url: {
+  "ruleId": "2c1f1a64-8d6e-4a46-9b6e-9f1a2a5d9f10",
+  "version": 1,
+  "type": "regex",
+  "when": {
+    "networkEquals": "email"
+  },
+  "field": "subject",
+  "pattern": "(?i)\\boff the record\\b",
+  "description": "Flag subjects that suggest off-record communications"
+}
+{
+  "ruleId": "2c1f1a64-8d6e-4a46-9b6e-9f1a2a5d9f10",
+  "version": 1,
+  "type": "regex",
+  "when": {
+    "networkEquals": "email"
+  },
+  "field": "subject",
+  "pattern": "(?i)\\boff the record\\b",
+  "description": "Flag subjects that suggest off-record communications"
+}
+http://localhost:8084/api/policies
+  body: none
+  auth: inherit
+}
+
+params:query {
+  i)\\boff the record\\b",
+    "description": "Flag subjects that suggest off-record communications"
+  }
+  {
+    "ruleId": "2c1f1a64-8d6e-4a46-9b6e-9f1a2a5d9f10",
+    "version": 1,
+    "type": "regex",
+    "when": {
+      "networkEquals": "email"
+    },
+    "field": "subject",
+    "pattern": "(?i)\\boff the record\\b",
+    "description": "Flag subjects that suggest off-record communications"
+  }
+  http://localhost:8084/api/policies: 
+}
+
+settings {
+  encodeUrl: true
+}

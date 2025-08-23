@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092   # change if your broker isn?t here
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        acks: all
+        enable.idempotence: true
+      # change per service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: companyVault
+app:
+  kafka:
+    topic: test-topic
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+    org.mongodb.driver.protocol.command: DEBUG
+
+
+
+
+

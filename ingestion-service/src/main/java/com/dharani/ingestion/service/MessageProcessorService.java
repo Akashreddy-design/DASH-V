@@ -13,6 +13,8 @@ import java.security.MessageDigest;
 import java.util.HexFormat;
 import java.util.UUID;
 
+
+
 @Service
 public class MessageProcessorService {
 
@@ -58,31 +60,71 @@ public class MessageProcessorService {
         }
     }
 
-
     private String generateStableMessageId(ObjectNode node) {
         try {
-            // Pick a few stable fields (falling back to empty if missing)
-            String tenantId  = node.hasNonNull("tenantId") ? node.get("tenantId").asText() : "";
-            String network   = node.hasNonNull("network") ? node.get("network").asText() : "";
-            String sender    = node.hasNonNull("sender") ? node.get("sender").asText() : "";
-            String subject   = node.hasNonNull("subject") ? node.get("subject").asText() : "";
-            String timestamp = node.hasNonNull("timestamp") ? node.get("timestamp").asText() : "";
+            String tenantId = node.hasNonNull("tenantId") ? node.get("tenantId").asText() : "";
+            String network  = node.hasNonNull("network") ? node.get("network").asText() : "";
 
-            // Concatenate into one fingerprint string
-            String fingerprint = tenantId + "|" + network + "|" + sender + "|" + subject + "|" + timestamp;
+            StringBuilder fingerprintBuilder = new StringBuilder();
+            fingerprintBuilder.append(tenantId).append("|").append(network);
 
-            // Hash with SHA-256 for stability
+            if ("email".equalsIgnoreCase(network) && node.hasNonNull("payload")) {
+                ObjectNode payload = (ObjectNode) node.get("payload");
+                String from     = payload.hasNonNull("from") ? payload.get("from").asText() : "";
+                String to       = payload.hasNonNull("to") && payload.get("to").isArray()
+                        ? payload.get("to").toString() : "";
+                String subject  = payload.hasNonNull("subject") ? payload.get("subject").asText() : "";
+                String body     = payload.hasNonNull("body") ? payload.get("body").asText() : "";
+                String sentAt   = payload.hasNonNull("sentAt") ? payload.get("sentAt").asText() : "";
+
+                fingerprintBuilder.append("|").append(from)
+                        .append("|").append(to)
+                        .append("|").append(subject)
+                        .append("|").append(body)
+                        .append("|").append(sentAt);
+
+            } else if ("slack".equalsIgnoreCase(network)) {
+                String user     = node.hasNonNull("user") ? node.get("user").asText() : "";
+                String text     = node.hasNonNull("text") ? node.get("text").asText() : "";
+                String timestamp= node.hasNonNull("timestamp") ? node.get("timestamp").asText() : "";
+                String team     = node.hasNonNull("team") ? node.get("team").asText() : "";
+                String channel  = node.hasNonNull("channel") ? node.get("channel").asText() : "";
+                String rawRef   = node.hasNonNull("rawReference") ? node.get("rawReference").asText() : "";
+
+                fingerprintBuilder.append("|").append(user)
+                        .append("|").append(text)
+                        .append("|").append(timestamp)
+                        .append("|").append(team)
+                        .append("|").append(channel)
+                        .append("|").append(rawRef);
+            } else {
+                // Fallback: include everything we can
+                fingerprintBuilder.append("|").append(node.toString());
+            }
+
+            // Create SHA-256 hash of fingerprint
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(fingerprint.getBytes(StandardCharsets.UTF_8));
+            byte[] hash = digest.digest(fingerprintBuilder.toString().getBytes(StandardCharsets.UTF_8));
 
-            // Return first 32 hex chars (shorter but still unique enough)
+            // Return first 16 hex chars
             return HexFormat.of().formatHex(hash, 0, 16);
 
         } catch (Exception e) {
-            // Fallback in case hashing fails
-            return UUID.randomUUID().toString();
+            // Last fallback: hash full JSON
+            try {
+                String jsonString = objectMapper.writeValueAsString(node);
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] hash = digest.digest(jsonString.getBytes(StandardCharsets.UTF_8));
+                return HexFormat.of().formatHex(hash, 0, 16);
+            } catch (Exception fallbackException) {
+                return UUID.randomUUID().toString().replace("-", "").substring(0, 16);
+            }
         }
     }
+
+
+
+
     // In MessageProcessorService.java (add this method)
     public String previewMessageId(String rawJson) {
         try {
@@ -105,3 +147,7 @@ public class MessageProcessorService {
     }
 
 }
+
+
+
+

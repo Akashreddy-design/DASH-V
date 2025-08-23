@@ -1,0 +1,255 @@
+<!--&lt;!&ndash;<project xmlns="http://maven.apache.org/POM/4.0.0"&ndash;&gt;-->
+<!--&lt;!&ndash;         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&ndash;&gt;-->
+<!--&lt;!&ndash;         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0&ndash;&gt;-->
+<!--&lt;!&ndash;         http://maven.apache.org/xsd/maven-4.0.0.xsd">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <modelVersion>4.0.0</modelVersion>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <groupId>com.example</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;    <artifactId>demo</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;    <version>0.0.1-SNAPSHOT</version>&ndash;&gt;-->
+<!--&lt;!&ndash;    <name>demo</name>&ndash;&gt;-->
+<!--&lt;!&ndash;    <description>Demo project for Spring Boot with Kafka + Elasticsearch</description>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; ✅ This is required so Spring Boot manages dependency versions &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <parent>&ndash;&gt;-->
+<!--&lt;!&ndash;        <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;        <artifactId>spring-boot-starter-parent</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        <version>3.3.3</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    </parent>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <properties>&ndash;&gt;-->
+<!--&lt;!&ndash;        <java.version>21</java.version>&ndash;&gt;-->
+<!--&lt;!&ndash;    </properties>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <dependencies>&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; Spring Boot core &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-boot-starter</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Web support &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-boot-starter-web</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; ✅ Kafka (no version needed, Boot manages it) &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.kafka</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-kafka</artifactId>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; ✅ Elasticsearch Java API Client &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>co.elastic.clients</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>elasticsearch-java</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>8.18.1</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; JSON processing &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>com.fasterxml.jackson.core</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>jackson-databind</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.postgresql</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>postgresql</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <scope>runtime</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-boot-starter-jdbc</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash; Testing &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-boot-starter-test</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <scope>test</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.projectlombok</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>lombok</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>1.18.38</version>&ndash;&gt;-->
+<!--&lt;!&ndash;            <scope>provided</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;    </dependencies>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <build>&ndash;&gt;-->
+<!--&lt;!&ndash;        <plugins>&ndash;&gt;-->
+<!--&lt;!&ndash;            &lt;!&ndash; Spring Boot Maven Plugin &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            <plugin>&ndash;&gt;-->
+<!--&lt;!&ndash;                <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                <artifactId>spring-boot-maven-plugin</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            </plugin>&ndash;&gt;-->
+<!--&lt;!&ndash;        </plugins>&ndash;&gt;-->
+<!--&lt;!&ndash;    </build>&ndash;&gt;-->
+<!--&lt;!&ndash;</project>&ndash;&gt;-->
+
+<!--<project xmlns="http://maven.apache.org/POM/4.0.0"-->
+<!--         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0-->
+<!--         http://maven.apache.org/xsd/maven-4.0.0.xsd">-->
+<!--    <modelVersion>4.0.0</modelVersion>-->
+
+<!--    <groupId>com.example</groupId>-->
+<!--    <artifactId>elastic-search-service</artifactId>-->
+<!--    <version>1.0.0</version>-->
+<!--    <packaging>jar</packaging>-->
+
+<!--    <name>elastic-search-service</name>-->
+<!--    <description>Elasticsearch indexing and search service</description>-->
+
+<!--    <parent>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--        <version>3.2.5</version>-->
+<!--        <relativePath/>-->
+<!--    </parent>-->
+
+<!--    <properties>-->
+<!--        <java.version>17</java.version>-->
+<!--    </properties>-->
+
+<!--    <dependencies>-->
+<!--        &lt;!&ndash; Spring Boot Web Starter &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; Elasticsearch High Level Rest Client &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.elasticsearch.client</groupId>-->
+<!--            <artifactId>elasticsearch-rest-high-level-client</artifactId>-->
+<!--            <version>7.17.9</version>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; Jackson for JSON mapping &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-databind</artifactId>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; Lombok (to generate getters/setters/constructors) &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <version>1.18.32</version>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; Kafka dependency &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.kafka</groupId>-->
+<!--            <artifactId>spring-kafka</artifactId>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; Spring Boot Test (optional for unit tests) &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-test</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+<!--</project>-->
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>elastic-search-service</artifactId>
+    <version>1.0.0</version>
+    <name>elastic-search-service</name>
+    <description>Elasticsearch indexing and search service</description>
+
+    <!-- Use a modern Spring Boot that supports Java 21 and current libs -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.3</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <java.version>21</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Kafka (managed by Boot) -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <!-- ✅ Elasticsearch Java API Client (matches your imports) -->
+        <dependency>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+            <version>8.18.1</version>
+        </dependency>
+
+        <!-- Jackson (Boot manages core); add JSR-310 for Instant/LocalDateTime -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
+        <!-- Tests -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
