@@ -84,7 +84,7 @@ ComplyVault is a **multi-tenant archival & compliance platform** designed to sec
 ## ⚙️ Tech Stack
 
 - **Language & Framework:** Java 21, Spring Boot 3.x
-- **Datastore:** MongoDB (immutable storage, retention, audit logs)
+- **Datastore:** MongoDB (immutable storage, retention, audit logs) ,PostgreSql (Policies and Flagged Messages)
 - **Search Engine:** Elasticsearch / MongoDB Atlas Search
 - **Messaging:** Apache Kafka (for ingestion pipeline)
 - **Build:** Maven
@@ -100,6 +100,7 @@ ComplyVault is a **multi-tenant archival & compliance platform** designed to sec
 - Maven 3.9+
 - Docker & Docker Compose
 - MongoDB
+- PostgreSQL
 - Elasticsearch
 - Apache Kafka
 
