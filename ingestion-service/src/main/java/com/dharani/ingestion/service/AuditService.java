@@ -1,0 +1,78 @@
+package com.dharani.ingestion.service;
+
+import com.dharani.ingestion.model.AuditLogs;
+import com.dharani.ingestion.repository.AuditLogRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.Map;
+import java.util.UUID;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class AuditService {
+
+    private final AuditLogRepository repo;
+
+    /**
+     * High level logging API: builds a nice message and persists to Mongo.
+     */
+    public void log(AuditLogs in) {
+        // Ensure identifiers exist
+        final String logId = in.getLogId() != null ? in.getLogId() : UUID.randomUUID().toString();
+        in.setLogId(logId);
+
+        // Build human-readable message once
+        final String pretty = buildMessage(
+                in.getService(), in.getStage(), in.getMessageId(), in.getStatus(), in.getErrors());
+        in.setMessage(pretty);
+
+        try {
+            AuditLogs saved = repo.save(in);
+            log.info("audit.persisted service={} stage={} status={} messageId={} logId={} mongoId={}",
+                    nz(in.getService()), nz(in.getStage()), nz(in.getStatus()),
+                    nz(in.getMessageId()), logId, saved.getId());
+        } catch (Exception e) {
+            log.error("audit.mongo_failed logId={} reason={}", logId, e.toString(), e);
+        }
+    }
+
+    /** Convenience overload for simple call sites. */
+    public void log(String service,
+                    String stage,
+                    String messageId,
+                    String status,
+                    Map<String, Object> details) {
+
+        AuditLogs logDoc = AuditLogs.builder()
+                .service(service)
+                .stage(stage)
+                .messageId(messageId)
+                .status(status)
+                .details(details)
+                .build();
+
+        log(logDoc);
+    }
+
+    private static String buildMessage(String service,
+                                       String stage,
+                                       String messageId,
+                                       String status,
+                                       java.util.List<String> errors) {
+        String base = String.format(
+                "[%s] service=%s | stage=%s | messageId=%s | status=%s",
+                Instant.now(),
+                nz(service), nz(stage), nz(messageId), nz(status)
+        );
+        if (errors != null && !errors.isEmpty()) {
+            return base + " | errors=" + errors;
+        }
+        return base;
+    }
+
+    private static String nz(String s) { return (s == null) ? "-" : s; }
+}

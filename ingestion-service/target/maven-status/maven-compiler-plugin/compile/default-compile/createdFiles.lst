@@ -1,0 +1,4 @@
+com\dharani\ingestion\service\MessageProcessorService.class
+com\dharani\ingestion\IngestionServiceApplication.class
+com\dharani\ingestion\validation\JsonSchemaValidator.class
+com\dharani\ingestion\controller\IngestionController.class

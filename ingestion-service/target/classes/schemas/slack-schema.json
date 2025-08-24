@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SlackMessage",
+  "type": "object",
+  "required": ["tenantId", "network", "user", "text", "timestamp", "team", "channel"],
+  "properties": {
+    "tenantId": { "type": "string" },
+    "network": { "type": "string", "enum": ["slack"] },
+    "user": { "type": "string" },
+    "text": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "team": { "type": "string" },
+    "channel": { "type": "string" },
+    "rawReference": { "type": "string" }
+  }
+}

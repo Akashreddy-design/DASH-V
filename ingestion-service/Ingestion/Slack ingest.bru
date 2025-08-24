@@ -1,0 +1,30 @@
+meta {
+  name: Slack ingest
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/ingest/slack
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "messageId": "d91f7b53-27f1-4f6a-bba7-56d96e30f8c2",
+    "tenantId": "bank-002",
+    "network": "slack",
+    "user": "analyst5",
+    "text": "Let's take this offline and discuss later.",
+    "timestamp": "2025-08-14T09:15:47Z",
+    "team": "trading-floor",
+    "channel": "equities-desk",
+    "rawReference": "raw://archive/bank-002/2025/08/14/d91f7b53-27f1-4f6a-bba7-56d96e30f8c2"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+}
