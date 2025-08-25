@@ -1,5 +1,9 @@
 # 📦 ComplyVault – Data Ingestion & Compliance Platform
 
+<p align="center">
+  <img width="652" height="937" alt="Screenshot 2025-08-19 191131" src="https://github.com/user-attachments/assets/2e16c8c9-1b6c-4013-9add-c341e1cb52ca" />
+</p>
+
 ComplyVault is a **multi-tenant archival & compliance platform** designed to securely ingest, normalize, deduplicate, and store data while enforcing compliance and retention policies. Think of it like a **compliance vault** where messages from multiple sources (e.g., Email, Slack) are processed, audited, and made searchable for regulatory and business needs.
 
 ---
@@ -43,55 +47,69 @@ ComplyVault is a **multi-tenant archival & compliance platform** designed to sec
 
 ---
 
+
 ## 🏗️ Architecture
 
-```
-                ┌──────────────┐
-                │   Ingestion   │
-                │ (Email/Slack) │
-                └──────┬───────┘
-                       │
-             ┌─────────▼─────────┐
-             │   Validation &     │
-             │ Normalization      │
-             └─────────┬─────────┘
-                       │
-             ┌─────────▼─────────┐
-             │ Deduplication      │
-             └─────────┬─────────┘
-                       │
-             ┌─────────▼─────────┐
-             │ Compliance Engine  │
-             └─────────┬─────────┘
-                       │
-        ┌──────────────▼───────────────┐
-        │   Retention & Audit Logging   │
-        └──────────────┬───────────────┘
-                       │
-            ┌──────────▼─────────┐
-            │   Exposed API      │
-            │ (Flagged/All Data) │
-            └──────────┬─────────┘
-                       │
-             ┌─────────▼─────────┐
-             │ Search (Keyword & │
-             │ Full-text)        │
-             └───────────────────┘
-```
+
+            ┌──────────────┐
+            │   Ingestion   │
+            │ (Email/Slack) │
+            └──────┬───────┘
+                   │
+         ┌─────────▼─────────┐
+         │   Validation &     │
+         │ Normalization      │
+         └─────────┬─────────┘
+                   │
+         ┌─────────▼─────────┐
+         │ Deduplication      │
+         └─────────┬─────────┘
+                   │
+         ┌─────────▼─────────┐
+         │ Compliance Engine  │
+         └─────────┬─────────┘
+                   │
+    ┌──────────────▼───────────────┐
+    │   Retention & Audit Logging   │
+    └──────────────┬───────────────┘
+                   │
+        ┌──────────▼─────────┐
+        │   Exposed API      │
+        │ (Flagged/All Data) │
+        └──────────┬─────────┘
+                   │
+         ┌─────────▼─────────┐
+         │ Search (Keyword & │
+         │ Full-text)        │
+         └───────────────────┘
+
+
+
+
 
 ---
 
 ## ⚙️ Tech Stack
 
-- **Language & Framework:** Java 21, Spring Boot 3.x
-- **Datastore:** MongoDB (immutable storage, retention, audit logs),PostgreSQL (for Storing policies and flagged msgs)
-- **Search Engine:** Elasticsearch / MongoDB Atlas Search
-- **Messaging:** Apache Kafka (for ingestion pipeline)
-- **Build:** Maven
-- **Deployment:** Docker, Kubernetes (Helm, ConfigMaps, Ingress)
-- **CI/CD:** GitHub Actions / Jenkins (for automation)
+- **Language & Framework:** Java 21, Spring Boot 3.x  
+- **Datastore:** MongoDB (immutable storage, retention, audit logs), PostgreSQL (for storing policies and flagged msgs)  
+- **Search Engine:** Elasticsearch / MongoDB Atlas Search  
+- **Messaging:** Apache Kafka (for ingestion pipeline)  
+- **Build:** Maven  
+- **Deployment:** Docker, Kubernetes (Helm, ConfigMaps, Ingress)  
+- **CI/CD:** GitHub Actions / Jenkins (for automation)  
 
 ---
+
+--- 
+## 👨‍💻 Contributors 
+Team 1 - DASH-V 
+- Vivek
+- Dharini 
+- Akash 
+- Stuti 
+- Hasini
+- ---
 
 ## 🔧 Setup & Installation
 
@@ -118,82 +136,4 @@ mvn spring-boot:run
 
 # Run with Docker
 docker-compose up --build
-```
 
----
-
-## 📡 API Endpoints
-
-### Ingestion
-```http
-POST /ingest/email   # Ingest Email JSON
-POST /ingest/slack   # Ingest Slack JSON
-```
-
-### Search
-```http
-GET /search?keyword=hello
-GET /search/fulltext?q=confidential
-```
-
-### Flagged Data
-```http
-GET /api/violations
-```
-
-### Retention
-```http
-POST /api/retention
-{
-  "channel": "email",
-  "retentionPeriod": "7y"
-}
-```
-
----
-
-## 📊 Example Audit Log
-```json
-{
-  "logId": "1234-5678",
-  "timestamp": "2025-08-23T10:15:30Z",
-  "service": "ingestion-service",
-  "stage": "validation",
-  "status": "passed",
-  "details": {
-    "totalPoliciesChecked": 10,
-    "violationsFound": 0
-  }
-}
-```
-
----
-
-## ✅ Testing
-- **Unit Tests:** JUnit + Mockito
-- **Integration Tests:** SpringBootTest + Testcontainers
-- **Automation:** End-to-end testing (pending)
-
----
-
-## 📌 Roadmap
-- [ ] Implement retention-based deletion (bonus).
-- [ ] Add export APIs.
-- [ ] Add full automation (CI/CD + integration tests).
-- [ ] Monitoring & metrics (Prometheus + Grafana).
-- [ ] Role-based access control for APIs.
-
----
-
-## 👨‍💻 Contributors
-- Team 1 - DASH-V  
-  - Vivek  
-  - Dharini  
-  - Akash  
-  - Stuti  
-  - Hasini  
-
----
-
-## 📜 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
