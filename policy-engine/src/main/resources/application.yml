@@ -27,7 +27,7 @@ spring:
       pool-name: policy-hikari
   jpa:
     hibernate:
-      ddl-auto: create # dev only; switch to 'validate' after Flyway
+      ddl-auto: update # dev only; switch to 'validate' after Flyway
     open-in-view: false
     show-sql: false              # set true if you want to see SQL in logs
     properties:
